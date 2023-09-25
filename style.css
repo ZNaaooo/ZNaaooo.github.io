@@ -342,7 +342,7 @@ span {
     padding: 1.5rem;
     font-size: 1.6rem;
     color: var(--text-color);
-    background: var(--second-bg-color);
+    background: var(--about);
     border-radius: 0.8rem;
     margin: 0.7rem 0;
 }
