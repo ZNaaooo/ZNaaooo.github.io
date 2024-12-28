@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halooww</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      background-color: #ffabc2; /* Biru tua */
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .email-icon {
+      font-size: 10rem; /* Ukuran besar */
+      color: #fee9e8; /* Biru cerah */
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+      animation: fadeIn 1s ease; /* Animasi masuk */
+    }
+
+    .email-icon:hover {
+      transform: scale(1.1); /* Animasi zoom */
+      color: #ffffff; /* Warna berubah */
+    }
+
+    .card {
+      background-color: #fee9e8; /* Biru lebih cerah */
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      color: #0f191a; /* Warna teks kontras */
+      font-family: 'Comic Sans MS', cursive; /* Menggunakan Comic Sans */
+      font-weight: bold; /* Membuat teks tebal */
+      font-size: 1.5rem; /* Memperbesar ukuran font */
+      padding: 2rem;
+      text-align: center;
+      display: none; /* Card disembunyikan */
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi hover */
+    }
+
+    .card:hover {
+      transform: scale(1.05); /* Efek pembesaran saat hover */
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4); /* Efek bayangan lebih tajam */
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes gradientChange {
+      0% {
+        background-color: #ffabc2; /* Warna awal */
+      }
+      10% {
+        background-color: #faa0ba; /* Langkah pertama */
+      }
+      20% {
+        background-color: #f493b1; /* Perubahan bertahap */
+      }
+      30% {
+        background-color: #ee87a7; /* Lebih mendekati ungu muda */
+      }
+      40% {
+        background-color: #e77b9e; /* Hampir ungu muda */
+      }
+      50% {
+        background-color: #d5a7b4; /* Perubahan ke warna yang lebih netral */
+      }
+      60% {
+        background-color: #c0b9ca; /* Perubahan bertahap ke biru */
+      }
+      70% {
+        background-color: #a6d0e0; /* Mendekati biru muda */
+      }
+      80% {
+        background-color: #80c8e4; /* Hampir sampai ke target biru */
+      }
+      90% {
+        background-color: #66b2da; /* Biru terang */
+      }
+      100% {
+        background-color: #4da8da; /* Warna akhir */
+      }
+      
+    }
+    .background-gradient {
+      animation: gradientChange 5s ease-in-out forwards; /* Perpanjang durasi jika perlu */
+    }
+
+    .card-left, .card-right {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      cursor: pointer;
+    }
+
+    .card-left {
+      left: 0;
+      background: rgba(255, 255, 255, 0.1); /* Transparansi klik area */
+    }
+
+    .card-right {
+      right: 0;
+      background: rgba(253, 253, 253, 0.1); /* Transparansi klik area */
+    }
+
+    @media (max-width: 576px) {
+      .email-icon {
+        font-size: 4rem; /* Sesuaikan ukuran untuk layar kecil */
+      }
+      .card {
+        font-size: 1.2rem; /* Sesuaikan ukuran teks */
+        width: 90%; /* Sesuaikan ukuran card */
+      }
+    }
+
+    /* CSS untuk Grid Gambar */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 3 kolom */
+      gap: 1rem;
+    }
+
+    .image-grid img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    /* Animasi Fade-in */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.fade {
+  opacity: 0; /* Mulai dengan transparan */
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+/* Kelas untuk gambar fade-in */
+.fade-in {
+  opacity: 0; /* Mulai dengan transparan */
+  animation: fadeIn 5s ease-in-out forwards;
+}
+
+/* Menambahkan delay pada setiap gambar agar animasi berurutan */
+.fade-in:nth-child(1) {
+  animation-delay: 0s; /* Gambar pertama langsung muncul */
+}
+
+.fade-in:nth-child(2) {
+  animation-delay: 0.5s; /* Gambar kedua muncul setelah setengah detik */
+}
+
+.fade-in:nth-child(3) {
+  animation-delay: 1s; /* Gambar ketiga muncul setelah satu detik */
+}
+
+.fade-in:nth-child(4) {
+  animation-delay: 1.5s; /* Gambar keempat muncul setelah satu setengah detik */
+}
+
+.fade-in:nth-child(5) {
+  animation-delay: 2s; /* Gambar kelima muncul setelah dua detik */
+}
+
+.fade-in:nth-child(6) {
+  animation-delay: 2.5s; /* Gambar keenam muncul setelah dua setengah detik */
+}
+.play-button {
+        transition: all 0.3s ease;
+    }
+
+    .play-button:hover {
+        background-color: #ff5722; /* Warna saat hover */
+        transform: scale(1.1); /* Efek zoom saat hover */
+        color: #ffffff; /* Pastikan ikon tetap terlihat */
+    }
+  </style>
+</head>
+<body>
+  <i class="fas fa-envelope email-icon" onclick="showCard('card1')"></i>
+  
+  <img src="Blush1.png" style="height: 250px; width: 250px; display: none;" class="fade">
+  <div class="card" id="card1" style="width: 25rem;">
+    <p><strong>From :</strong> Hasyimmiii</p>
+    <div class="card-left" onclick="showCard('email-icon')"></div>
+    <div class="card-right" onclick="showCard('card2')"></div>
+  </div>
+  
+
+  
+  <div class="card" id="card2" style="width: 20rem;">
+    <p><strong>Halooo Riaaa</strong><br>❤️❤️❤️</p>
+    <div class="card-left" onclick="showCard('card1')"></div>
+    <div class="card-right" onclick="showCard('card3'); triggerConfettiAndBackground(); ; playMusic()"></div>
+  </div>
+  <img src="Shy.png" style="height: 250px; width: 250px; display: none;" class="fade">
+  
+
+  <div class="card" id="card3" style="width: 25rem;">
+    <p><strong>Happy New Year Babee</strong><br>😽🎉</p>
+    <div class="card-left" onclick="showCard('card2')"></div>
+    <div class="card-right" onclick="showCard('card4')"></div>
+  </div>
+
+  <div class="card" id="card4" style="width: 25rem;">
+    <p><strong>I'm Sorry I can't Be With You Tonight</strong><br>😿😿</p>
+    <div class="card-left" onclick="showCard('card3')"></div>
+    <div class="card-right" onclick="showCard('card5')"></div>
+  </div>
+
+  <div class="card" id="card5" style="width: 25rem;">
+    <p><strong>Because I'm A Mama's Boy</strong><br>😾😼</p>
+    <div class="card-left" onclick="showCard('card4')"></div>
+    <div class="card-right" onclick="showCard('card6')"></div>
+  </div>
+
+  <div class="card" id="card6" style="width: 25rem;">
+    <p><strong>But...</strong></p>
+    <div class="card-left" onclick="showCard('card5')"></div>
+    <div class="card-right" onclick="showCard('card7')"></div>
+  </div>
+
+  <div class="card" id="card7" style="width: 25rem;">
+    <p><strong>I Promise</strong></p>
+    <div class="card-left" onclick="showCard('card6')"></div>
+    <div class="card-right" onclick="showCard('card8')"></div>
+  </div>
+
+  <div class="card" id="card8" style="width: 25rem;">
+    <p><strong>On This 2025 I Will</strong><br>Always Be With You <br>❤️</p>
+    <div class="card-left" onclick="showCard('card6')"></div>
+    <div class="card-right" onclick="showCard('card9')"></div>
+  </div>
+  
+  <div class="card" id="card9" style="width: 25rem;">
+    <p><strong>Like You Always</strong><br>Do With Me 😺😽</p>
+    <div class="card-left" onclick="showCard('card8')"></div>
+    <div class="card-right" onclick="showCard('card10')"></div>
+  </div>
+
+  <div class="card" id="card10" style="width: 25rem;">
+    <!-- Kategori 22 2023 October -->
+    <div>
+      <h5 class="fw-bold">22 October 2023</h5>
+      <div class="image-grid">
+        <img src="Sa1.jpeg" alt="Image 1" class="fade-in">
+        <img src="Sa2.jpeg" alt="Image 2" class="fade-in">
+      </div>
+    </div>
+    
+    <!-- Kategori 3 August 2024 -->
+    <div>
+      <h5 class="fw-bold" style="padding-top: 10px;">3 August 2024</h5>
+      <div class="image-grid">
+        <img src="We1.jpeg" alt="Image 3" class="fade-in">
+        <img src="We2.jpeg" alt="Image 4" class="fade-in">
+      </div>
+    </div>
+    
+    <!-- Kategori 12 December -->
+    <div>
+      <h5 class="fw-bold"  style="padding-top: 10px;">12 December 2024</h5>
+      <div class="image-grid">
+        <img src="Si1.jpeg" alt="Image 5" class="fade-in">
+        <img src="Si2.jpeg" alt="Image 6" class="fade-in">
+      </div>
+    </div>
+    
+    <div class="card-left" onclick="showCard('card9')"></div>
+    <div class="card-right" onclick="showCard('card11')"></div>
+</div>
+  <div class="card" id="card11" style="width: 25rem;">
+    <p><strong>We Always Together...</strong></p>
+    <div class="card-left" onclick="showCard('card10')"></div>
+    <div class="card-right" onclick="showCard('card12')"></div>
+  </div>
+  <div class="card" id="card12" style="width: 25rem;">
+    <p><strong>No Matter What Happens...</strong></p>
+    <div class="card-left" onclick="showCard('card11')"></div>
+    <div class="card-right" onclick="showCard('card13')"></div>
+  </div>
+  <div class="card" id="card13" style="width: 25rem;">
+    <p><strong>I Always Come Back,</strong><br>To You <br>😾</p>
+    <div class="card-left" onclick="showCard('card12')"></div>
+    <div class="card-right" onclick="showCard('card14')"></div>
+  </div>
+
+  <div class="card" id="card14" style="width: 30rem;">
+    <p><strong>If You Want Play Somethin</strong></p>
+    <div class="image-grid">
+        <div style="margin-bottom: 20px; text-align: center;">
+            <img src="You.jpg" alt="Image 1" style="width: 150px; height: 150px; border-radius: 5px;">
+            <br>
+            <button class="btn btn-primary play-button" style="margin-top: 10px; padding: 10px;" onclick="toggleMusic(this, '11You.mp3')">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+        <div style="margin-bottom: 20px; text-align: center;">
+            <img src="Love.jpg" alt="Image 2" style="width: 150px; height: 150px; border-radius: 5px;">
+            <br>
+            <button class="btn btn-primary play-button" style="margin-top: 10px; padding: 10px;" onclick="toggleMusic(this, '22Love.mp3')">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+        <div style="margin-bottom: 20px; text-align: center;">
+            <img src="Maps.jpg" alt="Image 3" style="width: 150px; height: 150px; border-radius: 5px;">
+            <br>
+            <button class="btn btn-primary play-button" style="margin-top: 10px; padding: 10px;" onclick="toggleMusic(this, '33Maps.mp3')">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+        <div style="margin-bottom: 20px; text-align: center;">
+            <img src="Break.jpg" alt="Image 4" style="width: 150px; height: 150px; border-radius: 5px;">
+            <br>
+            <button class="btn btn-primary play-button" style="margin-top: 10px; padding: 10px;" onclick="toggleMusic(this, '44Break.mp3')">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+        <div style="margin-bottom: 20px; text-align: center;">
+            <img src="Anthem.jpg" alt="Image 5" style="width: 150px; height: 150px; border-radius: 5px;">
+            <br>
+            <button class="btn btn-primary play-button" style="margin-top: 10px; padding: 10px;" onclick="toggleMusic(this, '55Anthem.mp3')">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+        <div style="margin-bottom: 20px; text-align: center;">
+            <img src="Location.jpg" alt="Image 6" style="width: 150px; height: 150px; border-radius: 5px;">
+            <br>
+            <button class="btn btn-primary play-button" style="margin-top: 10px; padding: 10px;" onclick="toggleMusic(this, '66Location.mp3')">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+        <div class="card-left" onclick="showCard('card13')"></div>
+        <div class="card-right" onclick="showCard('card15')"></div>
+    </div>
+</div>
+<div class="card" id="card15" style="width: 25rem;">
+    <p><strong>Lovee U Riaaa</strong><br>😽❤️</p>
+    <div class="card-left" onclick="showCard('card14')"></div>
+    <div class="card-right" onclick="showCard('email-icon')"></div>
+  </div>
+  <!-- Audio Player -->
+  <audio id="audio" src="Maps.mp3" preload="auto"></audio>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    let currentAudio = null; // Audio yang sedang dimainkan
+
+function toggleMusic(button, audioFile) {
+    if (currentAudio && !currentAudio.paused && currentAudio.src.includes(audioFile)) {
+        // Pause audio jika audio yang sama dimainkan
+        currentAudio.pause();
+        button.innerHTML = '<i class="fas fa-play"></i>';
+    } else {
+        // Pause audio yang sedang dimainkan, jika ada
+        if (currentAudio) {
+            currentAudio.pause();
+            const allButtons = document.querySelectorAll('.play-button');
+            allButtons.forEach(btn => btn.innerHTML = '<i class="fas fa-play"></i>');
+        }
+
+        // Play audio baru
+        currentAudio = new Audio(audioFile);
+        currentAudio.play();
+        button.innerHTML = '<i class="fas fa-pause"></i>';
+    }
+}
+    function playSpecificMusic(song) {
+  const audio = document.getElementById('audio');
+  audio.src = song; // Set file audio
+  audio.play(); // Memutar file
+}
+
+  function showCard(cardId) {
+  // Menyembunyikan semua card
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.animation = 'fadeOut 1s ease';
+    card.style.display = 'none';
+  });
+
+  // Kontrol tampilan gambar "Blush1.png"
+  const blushImage = document.querySelector('img[src="Blush1.png"]');
+  if (blushImage) {
+    if (cardId === 'card1') {
+      // Tampilkan gambar di card1
+      blushImage.style.display = 'block';
+    } else {
+      // Sembunyikan gambar di card lainnya
+      blushImage.style.display = 'none';
+    }
+  }
+  const ShyImage = document.querySelector('img[src="Shy.png"]');
+  if (ShyImage) {
+    if (cardId === 'card2') {
+      // Tampilkan gambar di card1
+      ShyImage.style.display = 'block';
+    } else {
+      // Sembunyikan gambar di card lainnya
+      ShyImage.style.display = 'none';
+    }
+  } 
+  // Kontrol tampilan ikon email
+  const emailIcon = document.querySelector('.email-icon');
+  if (cardId === 'email-icon') {
+    emailIcon.style.display = 'block';
+    return;
+  } else {
+    emailIcon.style.display = 'none';
+  }
+
+  // Menampilkan card yang dipilih
+  const selectedCard = document.getElementById(cardId);
+  if (selectedCard) {
+    selectedCard.style.display = 'block';
+    selectedCard.style.animation = 'fadeIn 1s ease';
+  }
+}
+
+
+
+    function triggerConfettiAndBackground() {
+      // Tambahkan kelas untuk memulai animasi gradasi
+      document.body.classList.add('background-gradient');
+
+      // Konfeti
+      const duration = 10 * 1000; // 5 seconds
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 10,
+          angle: 90,
+          spread: 60,
+          startVelocity: 40,
+          gravity: 1.5, // Kecepatan jatuh lebih cepat
+          ticks: 200,
+          origin: { x: Math.random(), y: 0 },
+          colors: ['#511287', '#ee87a7', '#fe036a', '#1045a1'],
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    }
+
+    function playMusic() {
+  const audio = document.getElementById('audio');
+
+  // Counter untuk melacak jumlah pemutaran
+  let playCount = 0;
+
+  // Fungsi untuk memutar audio
+  function playOnce() {
+    if (playCount < 2) {
+      playCount++;
+      audio.play();
+    }
+  }
+
+  // Event listener saat audio selesai
+  audio.addEventListener('ended', playOnce);
+
+  // Mulai pemutaran pertama
+  playOnce();
+}
+
+  </script>
+</body>
+</html>
